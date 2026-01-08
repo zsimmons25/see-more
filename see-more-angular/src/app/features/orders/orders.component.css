@@ -1,0 +1,123 @@
+@import 'tailwindcss';
+
+.orders-container {
+  @apply min-h-screen bg-gray-50 pt-20 pb-8;
+}
+
+.orders-content {
+  @apply container mx-auto px-4;
+}
+
+.orders-layout {
+  @apply flex gap-6;
+}
+
+/* Filters Sidebar */
+.filters-sidebar {
+  @apply w-64 shrink-0;
+}
+
+.filters-card {
+  @apply sticky top-24 rounded-lg bg-white p-6 shadow-md;
+}
+
+.filters-header {
+  @apply mb-6 flex items-center justify-between border-b border-gray-200 pb-4;
+}
+
+.filters-title {
+  @apply text-xl font-bold text-gray-800;
+}
+
+.clear-filters-btn {
+  @apply cursor-pointer text-sm text-blue-600 hover:text-blue-800;
+}
+
+.filter-section {
+  @apply mb-6 last:mb-0;
+}
+
+.filter-section-title {
+  @apply mb-3 text-sm font-semibold tracking-wider text-gray-700 uppercase;
+}
+
+.filter-options {
+  @apply space-y-2;
+}
+
+.filter-option {
+  @apply flex items-center gap-2;
+}
+
+.filter-checkbox {
+  @apply h-4 w-4 cursor-pointer rounded border-gray-300 text-blue-600;
+}
+
+.filter-label {
+  @apply cursor-pointer text-sm text-gray-700;
+}
+
+/* Products Grid */
+.products-section {
+  @apply min-h-screen flex-1;
+}
+
+.products-header {
+  @apply mb-6;
+}
+
+.products-count {
+  @apply text-lg text-gray-600;
+}
+
+.products-grid {
+  @apply grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3;
+}
+
+.product-card {
+  @apply m-4 cursor-pointer overflow-hidden rounded-xl shadow-md transition-shadow duration-200 hover:shadow-xl;
+}
+
+.product-image-container {
+  @apply relative m-2 flex h-48 items-center justify-center;
+}
+
+.product-badge {
+  @apply absolute top-2 right-2 rounded bg-blue-600 px-2 py-1 text-xs font-bold text-white;
+}
+
+.product-image {
+  @apply h-full;
+}
+
+.product-placeholder {
+  @apply text-sm text-gray-400;
+}
+
+.product-info {
+  @apply m-1 rounded-md bg-white p-4;
+}
+
+.product-brand {
+  @apply mb-1 text-xs tracking-wider text-gray-500 uppercase;
+}
+
+.product-name {
+  @apply mb-2 text-lg font-extrabold text-blue-900;
+}
+
+.product-footer {
+  @apply flex items-center justify-between;
+}
+
+.add-to-cart-btn {
+  @apply rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:bg-blue-700;
+}
+
+.shipping-badge {
+  @apply mt-2 text-xs font-semibold text-green-600;
+}
+
+.no-products {
+  @apply py-12 text-center text-gray-500;
+}

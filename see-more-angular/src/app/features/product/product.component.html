@@ -1,0 +1,112 @@
+<div class="product-container">
+  <div class="product-content">
+    @if (loading()) {
+      <div class="loading">
+        <p class="loading-spinner">Loading product...</p>
+      </div>
+    } @else if (error()) {
+      <div class="error">
+        <div class="error-message">
+          <h2>Error</h2>
+          <p>{{ error() }}</p>
+        </div>
+      </div>
+    } @else if (product(); as prod) {
+      <!-- Back Button -->
+      <button type="button" (click)="goBack()" class="back-button">
+        <svg
+          class="back-icon"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          ></path>
+        </svg>
+        Back to Products
+      </button>
+
+      <!-- Product Layout -->
+      <div class="product-layout">
+        <!-- Image Gallery -->
+        <div class="image-gallery">
+          <!-- Thumbnails on left -->
+          <div class="thumbnail-list">
+            @for (image of images(); track $index) {
+              <button
+                type="button"
+                (click)="selectImage($index)"
+                class="thumbnail bg-img-bg"
+                [class.thumbnail-active]="selectedImageIndex() === $index"
+              >
+                <img [src]="image" [alt]="prod.name" class="thumbnail-image" />
+              </button>
+            }
+          </div>
+
+          <!-- Main Image -->
+          <div class="main-image-container">
+            <img
+              [src]="images()[selectedImageIndex()]"
+              [alt]="prod.name"
+              class="main-image bg-img-bg"
+            />
+          </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+          <span class="product-brand">{{ prod.brand }}</span>
+          <h1 class="product-name">{{ prod.name }}</h1>
+          <span class="product-category">
+            {{ prod.category }} Augmentation
+          </span>
+          <span class="product-manufacturer">
+            Manufacturer: {{ prod.manufacturer }}</span
+          >
+
+          <!-- Description -->
+          <div>
+            <h2 class="mb-2 text-lg font-bold">Description</h2>
+            <p class="product-description">{{ prod.description }}</p>
+          </div>
+
+          <!-- Quantity Controls -->
+          <div class="quantity-section">
+            <label class="section-label">Select quantity:</label>
+            <div class="quantity-controls">
+              <button
+                type="button"
+                (click)="decrementQuantity()"
+                class="quantity-button"
+              >
+                -
+              </button>
+              <span class="quantity-display">{{ quantity() }}</span>
+              <button
+                type="button"
+                (click)="incrementQuantity()"
+                class="quantity-button"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <!-- Add to Cart Button -->
+          <button
+            type="button"
+            (click)="addToCart()"
+            class="add-to-cart-button"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

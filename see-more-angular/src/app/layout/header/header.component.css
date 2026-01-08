@@ -1,0 +1,70 @@
+@import 'tailwindcss';
+
+.header {
+  @apply fixed top-0 right-0 left-0 z-60 flex items-center justify-center bg-blue-900 text-white shadow-md;
+}
+
+.nav-container {
+  @apply container mx-auto px-4 py-3;
+}
+
+.title {
+  @apply absolute top-5 left-16 text-3xl;
+}
+
+.nav-content {
+  @apply flex items-center justify-between;
+}
+
+.sidebar-toggle {
+  @apply fixed top-3 left-4 z-60 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-800 transition-colors duration-200 hover:bg-blue-700;
+}
+
+.sidebar-icon {
+  @apply h-6 w-6;
+}
+
+/* Animated hamburger transformation */
+.hamburger-line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease-in-out;
+}
+
+.hamburger-open .hamburger-line-1 {
+  transform: translateY(4px) rotate(-45deg);
+}
+
+.hamburger-open .hamburger-line-2 {
+  opacity: 0;
+}
+
+.hamburger-open .hamburger-line-3 {
+  transform: translateY(-4px) rotate(45deg);
+}
+
+.nav-links {
+  @apply flex items-center gap-8;
+}
+
+.nav-link {
+  @apply py-2 transition-colors duration-200 hover:text-blue-200;
+}
+
+.nav-link-active {
+  @apply border-b-2 border-yellow-400 font-bold;
+}
+
+.sign-in {
+  @apply flex;
+}
+
+.sign-in-button {
+  @apply fixed top-3 right-4 rounded-4xl bg-orange-400 px-4 pt-2 pb-1 font-semibold text-white transition-colors duration-200 hover:bg-orange-600;
+}
+
+.sign-out-button {
+  @apply fixed top-3 right-4 rounded-4xl bg-red-600 px-4 pt-2 pb-1 font-semibold text-white transition-colors duration-200 hover:bg-red-700;
+}

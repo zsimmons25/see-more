@@ -1,0 +1,88 @@
+@if (loading()) {
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading profile...</p>
+  </div>
+} @else if (user()) {
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="user-info">
+        <h1>{{ user()!.firstName }} {{ user()!.lastName }}</h1>
+        <p class="member-since">Member since {{ user()!.memberSince }}</p>
+      </div>
+      <div class="balance-card">
+        <p class="balance-label">Account Balance</p>
+        <p class="balance-amount">${{ user()!.balance.toFixed(2) }}</p>
+        <button class="add-funds-btn" (click)="addFunds()">Add Funds</button>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>Contact Information</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Email:</span>
+          <span class="info-value">{{ user()!.email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Phone:</span>
+          <span class="info-value">{{ user()!.phone }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Address:</span>
+          <span class="info-value">
+            {{ user()!.address }}<br />
+            {{ user()!.city }}, {{ user()!.state }} {{ user()!.zipCode }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-section">
+      <h2>Account Stats</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p class="stat-value">{{ totalOrders() }}</p>
+          <p class="stat-label">Total Orders</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="orders-section">
+      <h2>Order History</h2>
+      @if (orderHistory().length === 0) {
+        <p class="no-orders">No orders yet</p>
+      } @else {
+        <div class="orders-table">
+          <div class="table-header">
+            <div class="col-date">Date</div>
+            <div class="col-product">Product</div>
+            <div class="col-quantity">Quantity</div>
+            <div class="col-total">Total</div>
+            <div class="col-status">Status</div>
+          </div>
+          @for (order of orderHistory(); track order.id) {
+            <div class="table-row">
+              <div class="col-date">{{ order.date }}</div>
+              <div class="col-product">{{ order.productName }}</div>
+              <div class="col-quantity">{{ order.quantity }}</div>
+              <div class="col-total">${{ order.total.toFixed(2) }}</div>
+              <div class="col-status">
+                <span
+                  class="status-badge"
+                  [class]="'status-' + order.status.toLowerCase()"
+                >
+                  {{ order.status }}
+                </span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="error-container">
+    <p>Failed to load user profile</p>
+  </div>
+}

@@ -1,0 +1,137 @@
+  @import "tailwindcss";
+
+  .about-container {
+    @apply max-w-5xl mx-auto px-4 py-8 mt-12;
+  }
+
+  .hero-section {
+    @apply bg-blue-900 text-white rounded-lg p-8 mb-8 shadow-lg;
+  }
+
+  .hero-name {
+    @apply text-4xl font-bold mb-2;
+  }
+
+  .hero-title {
+    @apply text-xl text-blue-200 mb-6;
+  }
+
+  .hero-summary {
+    @apply text-lg leading-relaxed;
+  }
+
+  .section {
+    @apply bg-white rounded-lg shadow-md p-6 mb-6;
+  }
+
+  .section-title {
+    @apply text-2xl font-bold text-blue-900 mb-4 border-b-2 border-blue-200 pb-2;
+  }
+
+  .contact-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-3;
+  }
+
+  .contact-item {
+    @apply flex items-start gap-2;
+  }
+
+  .contact-label {
+    @apply font-semibold text-gray-700 min-w-24;
+  }
+
+  .contact-value {
+    @apply text-gray-600;
+  }
+
+  .contact-link {
+    @apply text-blue-600 hover:text-blue-800 hover:underline;
+  }
+
+  .skills-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+  }
+
+  .skill-category {
+    @apply bg-gray-50 rounded-lg p-4;
+  }
+
+  .skill-category-title {
+    @apply font-bold text-gray-800 mb-2;
+  }
+
+  .skill-list {
+    @apply text-sm text-gray-600 leading-relaxed;
+  }
+
+  .experience-item {
+    @apply mb-6 last:mb-0;
+  }
+
+  .experience-header {
+    @apply mb-3;
+  }
+
+  .experience-title {
+    @apply text-xl font-bold text-gray-800;
+  }
+
+  .experience-company {
+    @apply text-lg text-blue-700;
+  }
+
+  .experience-dates {
+    @apply text-sm text-gray-500 italic;
+  }
+
+  .experience-bullets {
+    @apply list-disc list-outside ml-5 space-y-2;
+  }
+
+  .experience-bullet {
+    @apply text-gray-700 leading-relaxed;
+  }
+
+  .project-item {
+    @apply mb-6 last:mb-0;
+  }
+
+  .project-header {
+    @apply mb-3;
+  }
+
+  .project-title {
+    @apply text-xl font-bold text-gray-800;
+  }
+
+  .project-links {
+    @apply flex flex-wrap gap-3 mb-2;
+  }
+
+  .project-link {
+    @apply text-sm text-blue-600 hover:text-blue-800 hover:underline;
+  }
+
+  .project-dates {
+    @apply text-sm text-gray-500 italic mb-3;
+  }
+
+  .education-item {
+    @apply flex justify-between items-start;
+  }
+
+  .education-content {
+    @apply flex-1;
+  }
+
+  .education-school {
+    @apply text-lg font-bold text-gray-800;
+  }
+
+  .education-degree {
+    @apply text-gray-600;
+  }
+
+  .education-year {
+    @apply text-gray-500 font-semibold;
+  }

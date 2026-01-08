@@ -1,0 +1,95 @@
+<header class="header">
+  <!-- Hamburger/X Button -->
+  <button
+    type="button"
+    (click)="toggleSidebar()"
+    class="sidebar-toggle"
+    [class.hamburger-open]="isOpen()"
+    [attr.aria-label]="isOpen() ? 'Close sidebar' : 'Open sidebar'"
+  >
+    <svg
+      class="sidebar-icon"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <line
+        class="hamburger-line hamburger-line-1"
+        x1="6"
+        y1="8"
+        x2="18"
+        y2="8"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <line
+        class="hamburger-line hamburger-line-2"
+        x1="6"
+        y1="12"
+        x2="18"
+        y2="12"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <line
+        class="hamburger-line hamburger-line-3"
+        x1="6"
+        y1="16"
+        x2="18"
+        y2="16"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+  </button>
+
+  <div class="title">See More</div>
+
+  <nav class="nav-container">
+    <div class="nav-content">
+      <!-- Left: Spacer to maintain layout -->
+      <div class="h-10 w-10"></div>
+
+      <!-- Middle: Navigation Links -->
+      <div class="nav-links">
+        <a
+          routerLink="/about"
+          routerLinkActive="nav-link-active"
+          class="nav-link"
+        >
+          About
+        </a>
+        <a
+          routerLink="/orders"
+          routerLinkActive="nav-link-active"
+          class="nav-link"
+        >
+          Orders
+        </a>
+        @if (isAuthenticated()) {
+          <a
+            routerLink="/profile"
+            routerLinkActive="nav-link-active"
+            class="nav-link"
+          >
+            Profile
+          </a>
+        }
+      </div>
+
+      <!-- Right: Sign In Button -->
+      <div class="sign-in">
+        @if (!isAuthenticated()) {
+          <button type="button" (click)="signIn()" class="sign-in-button">
+            Sign In
+          </button>
+        } @else {
+          <button type="button" (click)="signOut()" class="sign-out-button">
+            Sign Out
+          </button>
+        }
+      </div>
+    </div>
+  </nav>
+</header>

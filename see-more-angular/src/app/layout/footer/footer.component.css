@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+.footer {
+  @apply relative mt-auto bg-blue-900 text-white;
+}
+
+.footer-container {
+  @apply container mx-auto px-4 py-6;
+}
+
+.footer-content {
+  @apply flex flex-col items-center justify-center gap-4 md:flex-row;
+}
+
+.contactme {
+  @apply absolute left-12 text-lg;
+}
+
+.linkedin {
+  @apply absolute right-12 flex gap-4;
+}
+
+.linkedin-a {
+  @apply transition-opacity duration-200 hover:opacity-80;
+}
+
+.linkedin-icon {
+  @apply h-8 w-8;
+}
+
+.git-hub {
+  @apply flex gap-4 contrast-125;
+}
+
+.git-hub-a {
+  @apply contrast-125 transition-opacity duration-200 hover:opacity-80;
+}
+
+.git-hub-icon {
+  @apply h-8 w-8;
+}

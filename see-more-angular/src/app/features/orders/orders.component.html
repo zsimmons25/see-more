@@ -1,0 +1,110 @@
+<div class="orders-container">
+  <div class="orders-content">
+    <div class="orders-layout">
+      <!-- Filters Sidebar -->
+      <aside class="filters-sidebar">
+        <div class="filters-card">
+          <div class="filters-header">
+            <h2 class="filters-title">Filters</h2>
+            <span class="clear-filters-btn" (click)="clearFilters()"
+              >Clear All</span
+            >
+          </div>
+
+          <!-- Brand Filter -->
+          <div class="filter-section">
+            <h3 class="filter-section-title">Brand</h3>
+            <div class="filter-options">
+              @for (brand of brands(); track brand.label) {
+                <label class="filter-option">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="brand.checked"
+                    (ngModelChange)="onBrandChange()"
+                    class="filter-checkbox"
+                  />
+                  <span class="filter-label">{{ brand.label }}</span>
+                </label>
+              }
+            </div>
+          </div>
+
+          <!-- Manufacturer Filter -->
+          <div class="filter-section">
+            <h3 class="filter-section-title">Manufacturer</h3>
+            <div class="filter-options">
+              @for (manufacturer of manufacturers(); track manufacturer.label) {
+                <label class="filter-option">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="manufacturer.checked"
+                    (ngModelChange)="onManufacturerChange()"
+                    class="filter-checkbox"
+                  />
+                  <span class="filter-label">{{ manufacturer.label }}</span>
+                </label>
+              }
+            </div>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="filter-section">
+            <h3 class="filter-section-title">Type</h3>
+            <div class="filter-options">
+              @for (category of categories(); track category.label) {
+                <label class="filter-option">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="category.checked"
+                    (ngModelChange)="onCategoryChange()"
+                    class="filter-checkbox"
+                  />
+                  <span class="filter-label">{{ category.label }}</span>
+                </label>
+              }
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Products Grid -->
+      <main class="products-section">
+        @if (filteredProducts$ | async; as products) {
+          <div class="products-header">
+            <p class="products-count">{{ products.length }} products found</p>
+          </div>
+
+          @if (products.length > 0) {
+            <div class="products-grid">
+              @for (product of products; track product.id) {
+                <article
+                  class="product-card bg-img-bg"
+                  (click)="viewProduct(product.name)"
+                >
+                  <div class="product-image-container">
+                    <img
+                      [src]="product.name + '.png'"
+                      [alt]="product.name"
+                      class="product-image"
+                    />
+                  </div>
+
+                  <div class="product-info">
+                    <p class="product-brand">{{ product.brand }}</p>
+                    <h3 class="product-name">{{ product.name }}</h3>
+                  </div>
+                </article>
+              }
+            </div>
+          } @else {
+            <div class="no-products">
+              <p>
+                No products match your filters. Try adjusting your selection.
+              </p>
+            </div>
+          }
+        }
+      </main>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+@import 'tailwindcss';
+
+.product-container {
+  @apply min-h-screen bg-white pt-20 pb-8;
+}
+
+.product-content {
+  @apply container mx-auto max-w-7xl px-4;
+}
+
+.back-button {
+  @apply mb-6 inline-flex items-center gap-2 pt-8 text-xl text-blue-600 transition-colors duration-200 hover:text-blue-800;
+}
+
+.back-icon {
+  @apply h-5 w-5;
+}
+
+.product-layout {
+  @apply grid grid-cols-1 gap-12 lg:grid-cols-2;
+}
+
+/* Image Gallery */
+.image-gallery {
+  @apply flex gap-4;
+}
+
+.thumbnail-list {
+  @apply flex flex-col gap-3;
+}
+
+.thumbnail {
+  @apply h-16 w-16 cursor-pointer overflow-hidden rounded-lg border-3 border-gray-200 transition-all duration-200 hover:border-gray-500;
+}
+
+.thumbnail-active {
+  @apply border-3 border-gray-500;
+}
+
+.thumbnail-image {
+  @apply h-full w-full object-contain;
+}
+
+.main-image-container {
+  @apply relative flex-1 overflow-hidden rounded-xl bg-gray-50;
+}
+
+.main-image {
+  @apply h-full w-full object-contain p-2;
+}
+
+/* Product Info */
+.product-info {
+  @apply flex flex-col gap-4;
+}
+
+.product-brand {
+  @apply text-sm font-semibold tracking-wider text-gray-500 uppercase;
+}
+
+.product-name {
+  @apply text-3xl leading-tight font-extrabold text-blue-900;
+}
+
+.product-category {
+  @apply text-gray-500;
+}
+
+.product-manufacturer {
+  @apply text-gray-500;
+}
+
+.product-description {
+  @apply text-gray-500;
+}
+
+/* Quantity Selector */
+.quantity-section {
+  @apply mt-3 space-y-20 text-xl;
+}
+
+.quantity-controls {
+  @apply flex cursor-pointer items-center justify-between rounded-xl border-2 border-gray-300 p-4 transition-all duration-200 hover:border-blue-500;
+}
+
+.quantity-button {
+  @apply flex h-8 w-8 items-center justify-center rounded-lg pt-1 text-5xl text-gray-500 transition-colors duration-200 hover:bg-gray-100;
+}
+
+.quantity-display {
+  @apply text-4xl font-extrabold text-gray-900;
+}
+
+/* Add to Cart */
+.add-to-cart-button {
+  @apply mt-8 w-full rounded-full bg-orange-500 px-6 pt-3 pb-2 text-2xl font-bold text-white transition-colors duration-200 hover:bg-orange-600;
+}
+
+.loading {
+  @apply flex min-h-screen items-center justify-center;
+}
+
+.loading-spinner {
+  @apply text-blue-600;
+}
+
+.error {
+  @apply flex min-h-screen items-center justify-center;
+}
+
+.error-message {
+  @apply rounded-lg bg-red-100 p-6 text-red-700;
+}

@@ -1,0 +1,57 @@
+  <!-- Overlay -->
+  <div
+    class="sidebar-overlay"
+    [class.sidebar-overlay-hidden]="!isOpen()"
+    [class.sidebar-overlay-visible]="isOpen()"
+    (click)="close()"
+  ></div>
+
+  <!-- Sidebar -->
+  <aside
+    class="sidebar"
+    [class.sidebar-closed]="!isOpen()"
+    [class.sidebar-open]="isOpen()"
+  >
+    <!-- Header -->
+    <div class="sidebar-header">
+      <h2 class="sidebar-title">Menu</h2>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-nav">
+      <ul class="nav-list">
+        <li>
+          <a
+            routerLink="/about"
+            routerLinkActive="nav-item-active"
+            class="nav-item"
+            (click)="close()"
+          >
+            About
+          </a>
+        </li>
+        <li>
+            <a
+              routerLink="/orders"
+              routerLinkActive="nav-item-active"
+              class="nav-item"
+              (click)="close()"
+            >
+              Orders
+            </a>
+        </li>
+        @if (isAuthenticated()) {
+          <li>
+            <a
+              routerLink="/profile"
+              routerLinkActive="nav-item-active"
+              class="nav-item"
+              (click)="close()"
+            >
+              Profile
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+  </aside>
