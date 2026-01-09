@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 .product-container {
-  @apply min-h-screen bg-white pt-20 pb-8;
+  @apply bg-white pt-20 pb-8;
 }
 
 .product-content {
@@ -72,6 +72,10 @@
 
 .product-description {
   @apply text-gray-500;
+}
+
+.product-price {
+  @apply text-3xl text-emerald-600;
 }
 
 /* Quantity Selector */

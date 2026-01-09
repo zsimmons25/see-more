@@ -1,0 +1,185 @@
+<div class="cart-container">
+  <h1>Shopping Cart</h1>
+
+  @if (orderSuccess()) {
+    <div class="success-container">
+      <div class="success-icon">✓</div>
+      <h2>Order Placed Successfully!</h2>
+      <p>Redirecting to your profile...</p>
+    </div>
+  } @else {
+    @if (cartItems().length === 0) {
+      <div class="empty-cart">
+        <p>Your cart is empty</p>
+        <button class="continue-btn" (click)="continueShopping()">
+          Continue Shopping
+        </button>
+      </div>
+    } @else {
+      <div class="cart-content">
+        <div class="cart-items">
+          @for (item of cartItems(); track item.productId) {
+            <div class="cart-item">
+              <div class="item-image">
+                <img
+                  [src]="item.productName + '.png'"
+                  [alt]="item.productName"
+                />
+              </div>
+
+              <div class="item-info">
+                <h3>{{ item.productName }}</h3>
+                <p class="item-price">
+                  {{ item.price | number: '1.0-0' }} lenses each
+                </p>
+              </div>
+
+              <div class="item-controls">
+                <div class="quantity-controls">
+                  <button
+                    class="qty-btn"
+                    (click)="updateQuantity(item.productId, item.quantity - 1)"
+                  >
+                    -
+                  </button>
+                  <span class="quantity">{{ item.quantity }}</span>
+                  <button
+                    class="qty-btn"
+                    (click)="updateQuantity(item.productId, item.quantity + 1)"
+                  >
+                    +
+                  </button>
+                </div>
+
+                <p class="item-total">
+                  {{ item.price * item.quantity | number: '1.0-0' }} lenses
+                </p>
+
+                <button
+                  class="remove-btn"
+                  (click)="openRemoveItemModal(item.productId)"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          }
+
+          <button class="clear-cart-btn" (click)="openClearCartModal()">
+            Clear Cart
+          </button>
+        </div>
+
+        <div class="cart-summary">
+          <h2>Order Summary</h2>
+
+          <div class="summary-row">
+            <span>Items ({{ itemCount() }})</span>
+            <span>{{ total() | number: '1.0-0' }} lenses</span>
+          </div>
+
+          @if (currentUser()) {
+            <div class="summary-row balance-row">
+              <span>Your Balance</span>
+              <span>{{ currentUser()!.balance | number: '1.0-0' }} lenses</span>
+            </div>
+
+            <div class="summary-row remaining-row">
+              <span>Remaining After Order</span>
+              <span
+                >{{
+                  currentUser()!.balance - total() | number: '1.0-0'
+                }}
+                lenses</span
+              >
+            </div>
+          }
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-row total-row">
+            <span>Total</span>
+            <span>{{ total() | number: '1.0-0' }} lenses</span>
+          </div>
+
+          @if (orderError()) {
+            <div class="error-message">{{ orderError() }}</div>
+          }
+
+          @if (!currentUser()) {
+            <div class="info-message">
+              <p>Please sign in to place your order</p>
+              <button class="sign-in-link-btn" (click)="goToSignIn()">
+                Sign In
+              </button>
+            </div>
+          } @else if (!hasEnoughBalance()) {
+            <div class="warning-message">
+              Insufficient balance. Please add
+              {{ total() - currentUser()!.balance | number: '1.0-0' }} more
+              lenses.
+            </div>
+          }
+
+          <button
+            class="checkout-btn"
+            (click)="placeOrder()"
+            [disabled]="placingOrder() || !hasEnoughBalance() || !currentUser()"
+          >
+            @if (placingOrder()) {
+              Placing Order...
+            } @else if (!currentUser()) {
+              Sign In to Checkout
+            } @else {
+              Place Order
+            }
+          </button>
+
+          <button class="continue-btn" (click)="continueShopping()">
+            Continue Shopping
+          </button>
+        </div>
+      </div>
+    }
+  }
+</div>
+
+@if (showClearCartModal()) {
+  <div class="modal-overlay" (click)="closeClearCartModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Clear Cart</h2>
+      <p class="modal-subtitle">
+        Are you sure you want to remove all items from your cart?
+      </p>
+
+      <div class="modal-actions">
+        <button class="cancel-btn" (click)="closeClearCartModal()">
+          Cancel
+        </button>
+        <button class="confirm-btn" (click)="confirmClearCart()">
+          Clear Cart
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (showRemoveItemModal()) {
+  <div class="modal-overlay" (click)="closeRemoveItemModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Remove Item</h2>
+      <p class="modal-subtitle">
+        Are you sure you want to remove this item from your cart?
+      </p>
+
+      <div class="modal-actions">
+        <button class="cancel-btn" (click)="closeRemoveItemModal()">
+          Cancel
+        </button>
+        <button class="confirm-btn" (click)="confirmRemoveItem()">
+          Remove Item
+        </button>
+      </div>
+    </div>
+  </div>
+}

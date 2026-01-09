@@ -1,0 +1,76 @@
+<div class="register-container">
+  <div class="register-card">
+    <h1>Create Account</h1>
+    <p class="subtitle">Sign up to start ordering</p>
+
+    @if (error()) {
+      <div class="error-message">
+        {{ error() }}
+      </div>
+    }
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input
+            id="firstName"
+            type="text"
+            [value]="firstName()"
+            (input)="firstName.set($any($event.target).value)"
+            required
+            placeholder="John"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input
+            id="lastName"
+            type="text"
+            [value]="lastName()"
+            (input)="lastName.set($any($event.target).value)"
+            required
+            placeholder="Doe"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          [value]="email()"
+          (input)="email.set($any($event.target).value)"
+          required
+          placeholder="john.doe@example.com"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          [value]="password()"
+          (input)="password.set($any($event.target).value)"
+          required
+          placeholder="Create a password"
+        />
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="loading()">
+        @if (loading()) {
+          Creating account...
+        } @else {
+          Create Account
+        }
+      </button>
+    </form>
+
+    <p class="login-link">
+      Already have an account? <a routerLink="/login">Sign in</a>
+    </p>
+  </div>
+</div>

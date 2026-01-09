@@ -1,0 +1,12 @@
+  CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+  CREATE TABLE IF NOT EXISTS orders (
+      id UUID PRIMARY KEY DEFAULT uuid_generate_v1(),
+      "userId" UUID NOT NULL,
+      items JSONB NOT NULL,
+      total NUMERIC(10, 2) NOT NULL,
+      status VARCHAR NOT NULL DEFAULT 'complete',
+      "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY ("userId") REFERENCES users(id) ON DELETE CASCADE
+  );

@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+.app-wrapper {
+  @apply flex min-h-screen flex-col;
+}
+
+.main-content {
+  @apply flex-1;
+}

@@ -1,0 +1,67 @@
+  version: '3.8'
+
+  services:
+    postgres:
+      image: postgres:15
+      container_name: see-more-postgres-dev
+      restart: unless-stopped
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: see_more_db
+      ports:
+        - '5432:5432'
+      volumes:
+        - postgres_data_dev:/var/lib/postgresql/data
+        - ./see-more-nest/schemas:/docker-entrypoint-initdb.d
+      networks:
+        - see-more-network-dev
+
+    backend:
+      build:
+        context: ./see-more-nest
+        dockerfile: dockerfile.dev
+      container_name: see-more-backend-dev
+      restart: unless-stopped
+      environment:
+        DATABASE_HOST: postgres
+        DATABASE_PORT: 5432
+        DATABASE_USER: postgres
+        DATABASE_PASSWORD: postgres
+        DATABASE_NAME: see_more_db
+        PORT: 3000
+        NODE_ENV: development
+      ports:
+        - '3000:3000'
+      volumes:
+        - ./see-more-nest:/app
+        - /app/node_modules
+      depends_on:
+        - postgres
+      networks:
+        - see-more-network-dev
+
+    frontend:
+      build:
+        context: ./see-more-angular
+        dockerfile: dockerfile.dev
+      container_name: see-more-frontend-dev
+      restart: unless-stopped
+      environment:
+        NODE_ENV: development
+      ports:
+        - '4200:4200'
+      volumes:
+        - ./see-more-angular:/app
+        - /app/node_modules
+      depends_on:
+        - backend
+      networks:
+        - see-more-network-dev
+
+  volumes:
+    postgres_data_dev:
+
+  networks:
+    see-more-network-dev:
+      driver: bridge

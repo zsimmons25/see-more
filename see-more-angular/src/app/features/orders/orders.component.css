@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 .orders-container {
-  @apply min-h-screen bg-gray-50 pt-20 pb-8;
+  @apply bg-gray-50 pt-20;
 }
 
 .orders-content {
@@ -59,7 +59,7 @@
 
 /* Products Grid */
 .products-section {
-  @apply min-h-screen flex-1;
+  @apply flex-1;
 }
 
 .products-header {

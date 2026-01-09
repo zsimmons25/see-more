@@ -46,6 +46,8 @@
 
   <div class="title">See More</div>
 
+  <img class="seemore" src="seemore.png" alt="" />
+
   <nav class="nav-container">
     <div class="nav-content">
       <!-- Left: Spacer to maintain layout -->
@@ -67,6 +69,7 @@
         >
           Orders
         </a>
+        <!--
         @if (isAuthenticated()) {
           <a
             routerLink="/profile"
@@ -76,20 +79,82 @@
             Profile
           </a>
         }
+          -->
       </div>
 
-      <!-- Right: Sign In Button -->
+      <!-- Right: Sign In Button or User Actions -->
       <div class="sign-in">
         @if (!isAuthenticated()) {
           <button type="button" (click)="signIn()" class="sign-in-button">
             Sign In
           </button>
         } @else {
-          <button type="button" (click)="signOut()" class="sign-out-button">
-            Sign Out
-          </button>
+          <div class="user-actions">
+            <div class="user-menu">
+              <button
+                type="button"
+                class="user-icon-btn"
+                (click)="toggleUserDropdown()"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </button>
+
+              @if (showUserDropdown()) {
+                <div class="dropdown-menu">
+                  <button
+                    type="button"
+                    class="dropdown-item"
+                    (click)="navigateToProfile()"
+                  >
+                    Profile
+                  </button>
+                  <div class="dropdown-divider"></div>
+                  <button
+                    type="button"
+                    class="dropdown-item"
+                    (click)="signOut()"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              }
+            </div>
+            @if (cartItemCount() > 0) {
+              <a routerLink="/cart" class="cart-icon-link">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="9" cy="21" r="1" />
+                  <circle cx="20" cy="21" r="1" />
+                  <path
+                    d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                  />
+                </svg>
+                <span class="cart-badge">{{ cartItemCount() }}</span>
+              </a>
+            }
+          </div>
         }
       </div>
     </div>
   </nav>
 </header>
+
+@if (showUserDropdown()) {
+  <div class="dropdown-overlay" (click)="closeUserDropdown()"></div>
+}

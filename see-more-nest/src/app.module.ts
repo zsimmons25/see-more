@@ -4,7 +4,9 @@
   import { AppController } from './app.controller';
   import { AppService } from './app.service';
   import { ProductsModule } from './products/products.module';
-import { UsersModule } from './users/users.module';
+  import { UsersModule } from './users/users.module';
+  import { AuthModule } from './auth/auth.module';
+  import { OrdersModule } from './orders/orders.module';
 
   @Module({
     imports: [
@@ -19,11 +21,13 @@ import { UsersModule } from './users/users.module';
         password: process.env.DATABASE_PASSWORD || 'postgres',
         database: process.env.DATABASE_NAME || 'see_more_db',
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true, // Set to false in production
+        synchronize: false,
         logging: true,
       }),
       ProductsModule,
       UsersModule,
+      AuthModule,
+      OrdersModule,
     ],
     controllers: [AppController],
     providers: [AppService],

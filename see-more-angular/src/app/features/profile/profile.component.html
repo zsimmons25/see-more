@@ -6,36 +6,37 @@
 } @else if (user()) {
   <div class="profile-container">
     <div class="profile-header">
-      <div class="user-info">
+      <div class="header-left">
         <h1>{{ user()!.firstName }} {{ user()!.lastName }}</h1>
-        <p class="member-since">Member since {{ user()!.memberSince }}</p>
-      </div>
-      <div class="balance-card">
-        <p class="balance-label">Account Balance</p>
-        <p class="balance-amount">${{ user()!.balance.toFixed(2) }}</p>
-        <button class="add-funds-btn" (click)="addFunds()">Add Funds</button>
       </div>
     </div>
 
     <div class="info-section">
-      <h2>Contact Information</h2>
+      <div class="section-header">
+        <h2>Account</h2>
+        <p class="member-since">
+          Member since {{ user()!.memberSince | date: 'MMMM d, yyyy' }}
+        </p>
+      </div>
       <div class="info-grid">
         <div class="info-item">
           <span class="info-label">Email:</span>
           <span class="info-value">{{ user()!.email }}</span>
         </div>
-        <div class="info-item">
-          <span class="info-label">Phone:</span>
-          <span class="info-value">{{ user()!.phone }}</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Address:</span>
-          <span class="info-value">
-            {{ user()!.address }}<br />
-            {{ user()!.city }}, {{ user()!.state }} {{ user()!.zipCode }}
-          </span>
-        </div>
+        <button class="change-password-btn" (click)="openChangePasswordModal()">
+          Change Password
+        </button>
       </div>
+    </div>
+
+    <div class="balance-card">
+      <p class="balance-label">Account Balance</p>
+      <p class="balance-amount">
+        {{ user()!.balance | number: '1.0-0' }} lenses
+      </p>
+      <button class="add-funds-btn" (click)="openAddFundsModal()">
+        Add Lenses
+      </button>
     </div>
 
     <div class="stats-section">
@@ -45,6 +46,10 @@
           <p class="stat-value">{{ totalOrders() }}</p>
           <p class="stat-label">Total Orders</p>
         </div>
+        <div class="stat-card">
+          <p class="stat-value">{{ totalSpent() | number: '1.0-0' }}</p>
+          <p class="stat-label">Lenses Spent</p>
+        </div>
       </div>
     </div>
 
@@ -53,27 +58,44 @@
       @if (orderHistory().length === 0) {
         <p class="no-orders">No orders yet</p>
       } @else {
-        <div class="orders-table">
-          <div class="table-header">
-            <div class="col-date">Date</div>
-            <div class="col-product">Product</div>
-            <div class="col-quantity">Quantity</div>
-            <div class="col-total">Total</div>
-            <div class="col-status">Status</div>
-          </div>
+        <div class="orders-list">
           @for (order of orderHistory(); track order.id) {
-            <div class="table-row">
-              <div class="col-date">{{ order.date }}</div>
-              <div class="col-product">{{ order.productName }}</div>
-              <div class="col-quantity">{{ order.quantity }}</div>
-              <div class="col-total">${{ order.total.toFixed(2) }}</div>
-              <div class="col-status">
+            <div class="order-card">
+              <div class="order-header">
+                <div class="order-info">
+                  <h3>Order #{{ order.id }}</h3>
+                  <p class="order-date">
+                    {{ order.createdAt | date: 'short' }}
+                  </p>
+                </div>
                 <span
                   class="status-badge"
                   [class]="'status-' + order.status.toLowerCase()"
                 >
                   {{ order.status }}
                 </span>
+              </div>
+
+              <div class="order-items">
+                @for (item of order.items; track item.productId) {
+                  <div class="order-item">
+                    <span class="item-name">{{ item.productName }}</span>
+                    <span class="item-quantity">x{{ item.quantity }}</span>
+                    <span class="item-price"
+                      >{{
+                        item.price * item.quantity | number: '1.0-0'
+                      }}
+                      lenses</span
+                    >
+                  </div>
+                }
+              </div>
+
+              <div class="order-total">
+                <span>Total:</span>
+                <span class="total-amount"
+                  >{{ order.total | number: '1.0-0' }} lenses</span
+                >
               </div>
             </div>
           }
@@ -84,5 +106,130 @@
 } @else {
   <div class="error-container">
     <p>Failed to load user profile</p>
+  </div>
+}
+
+@if (showAddFundsModal()) {
+  <div class="modal-overlay" (click)="closeAddFundsModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Add Lenses</h2>
+      <p class="modal-subtitle">Enter the number of lens you want to add</p>
+
+      @if (fundsError()) {
+        <div class="error-message">{{ fundsError() }}</div>
+      }
+
+      <div class="form-group">
+        <label for="amount">Lenses</label>
+        <input
+          id="amount"
+          type="number"
+          [value]="fundsAmount()"
+          (input)="fundsAmount.set($any($event.target).value)"
+          placeholder="Enter lenses"
+          step="1"
+          min="0"
+          max="1000000"
+          [disabled]="addingFunds()"
+        />
+      </div>
+
+      <div class="modal-actions">
+        <button
+          class="cancel-btn"
+          (click)="closeAddFundsModal()"
+          [disabled]="addingFunds()"
+        >
+          Cancel
+        </button>
+        <button
+          class="confirm-btn"
+          (click)="confirmAddFunds()"
+          [disabled]="addingFunds()"
+        >
+          @if (addingFunds()) {
+            Adding...
+          } @else {
+            Add Lenses
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+@if (showChangePasswordModal()) {
+  <div class="modal-overlay" (click)="closeChangePasswordModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Change Password</h2>
+      <p class="modal-subtitle">
+        Enter your current password and a new password
+      </p>
+
+      @if (passwordError()) {
+        <div class="error-message">{{ passwordError() }}</div>
+      }
+
+      @if (passwordSuccess()) {
+        <div class="success-message">{{ passwordSuccess() }}</div>
+      }
+
+      <div class="form-group">
+        <label for="currentPassword">Current Password</label>
+        <input
+          id="currentPassword"
+          type="password"
+          [value]="currentPassword()"
+          (input)="currentPassword.set($any($event.target).value)"
+          placeholder="Enter current password"
+          [disabled]="changingPassword()"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="newPassword">New Password</label>
+        <input
+          id="newPassword"
+          type="password"
+          [value]="newPassword()"
+          (input)="newPassword.set($any($event.target).value)"
+          placeholder="Enter new password"
+          [disabled]="changingPassword()"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm New Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          [value]="confirmPassword()"
+          (input)="confirmPassword.set($any($event.target).value)"
+          placeholder="Confirm new password"
+          [disabled]="changingPassword()"
+        />
+      </div>
+
+      <div class="modal-actions">
+        <button
+          class="cancel-btn"
+          (click)="closeChangePasswordModal()"
+          [disabled]="changingPassword()"
+        >
+          Cancel
+        </button>
+        <button
+          class="confirm-btn"
+          (click)="confirmChangePassword()"
+          [disabled]="changingPassword()"
+        >
+          @if (changingPassword()) {
+            Changing...
+          } @else {
+            Change Password
+          }
+        </button>
+      </div>
+    </div>
   </div>
 }

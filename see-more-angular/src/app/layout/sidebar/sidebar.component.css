@@ -51,3 +51,11 @@
 .nav-section-title {
   @apply px-4 py-2 text-sm font-semibold tracking-wider text-blue-300 uppercase;
 }
+
+.account-divider {
+  @apply my-4 border-t border-gray-300;
+}
+
+.sign-out-item {
+  @apply w-full cursor-pointer bg-orange-400 text-left hover:bg-orange-600;
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService, Product } from '../../core/api.service';
+import { CartService } from '../../core/cart.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -14,6 +15,7 @@ export class ProductComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private apiService = inject(ApiService);
+  private cartService = inject(CartService);
 
   product = signal<Product | null>(null);
   loading = signal<boolean>(true);
@@ -35,7 +37,6 @@ export class ProductComponent implements OnInit {
   }
 
   loadProductByName(slug: string): void {
-    // Load all products and find by name
     this.apiService.getProducts().subscribe({
       next: (products) => {
         const product = products.find((p) => {
@@ -86,10 +87,18 @@ export class ProductComponent implements OnInit {
 
   addToCart(): void {
     const prod = this.product();
-    if (prod) {
-      console.log(`Adding ${this.quantity()} x ${prod.name} to cart`);
-      alert(`Added ${this.quantity()} x ${prod.name} to cart!`);
-    }
+    if (!prod) return;
+
+    const quantity = this.quantity();
+
+    this.cartService.addItem({
+      productId: prod.id,
+      productName: prod.name,
+      quantity: quantity,
+      price: prod.price,
+    });
+
+    this.router.navigate(['/cart']);
   }
 
   goBack(): void {

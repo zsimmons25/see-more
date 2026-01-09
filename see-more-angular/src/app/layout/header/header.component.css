@@ -12,19 +12,22 @@
   @apply absolute top-5 left-16 text-3xl;
 }
 
+.seemore {
+  @apply absolute top-0.5 left-48 h-14 w-7;
+}
+
 .nav-content {
   @apply flex items-center justify-between;
 }
 
 .sidebar-toggle {
-  @apply fixed top-3 left-4 z-60 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-800 transition-colors duration-200 hover:bg-blue-700;
+  @apply fixed top-3 left-4 z-70 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-800 transition-colors hover:bg-blue-700;
 }
 
 .sidebar-icon {
   @apply h-6 w-6;
 }
 
-/* Animated hamburger transformation */
 .hamburger-line {
   transform-box: fill-box;
   transform-origin: center;
@@ -50,7 +53,7 @@
 }
 
 .nav-link {
-  @apply py-2 transition-colors duration-200 hover:text-blue-200;
+  @apply py-2 transition-colors hover:text-blue-200;
 }
 
 .nav-link-active {
@@ -62,9 +65,41 @@
 }
 
 .sign-in-button {
-  @apply fixed top-3 right-4 rounded-4xl bg-orange-400 px-4 pt-2 pb-1 font-semibold text-white transition-colors duration-200 hover:bg-orange-600;
+  @apply fixed top-3 right-4 rounded-4xl bg-orange-400 px-4 pt-2 pb-1 font-semibold text-white transition-colors hover:bg-orange-600;
 }
 
-.sign-out-button {
-  @apply fixed top-3 right-4 rounded-4xl bg-red-600 px-4 pt-2 pb-1 font-semibold text-white transition-colors duration-200 hover:bg-red-700;
+.user-actions {
+  @apply fixed top-3 right-4 flex items-center gap-3;
+}
+
+.cart-icon-link {
+  @apply relative text-white transition-colors hover:text-gray-200;
+}
+
+.cart-badge {
+  @apply absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 pt-1 text-xs font-bold text-white;
+}
+
+.user-menu {
+  @apply relative;
+}
+
+.user-icon-btn {
+  @apply rounded-lg p-2 text-white transition-colors hover:bg-blue-800 hover:text-gray-200;
+}
+
+.dropdown-overlay {
+  @apply fixed inset-0 z-55;
+}
+
+.dropdown-menu {
+  @apply absolute top-full right-0 z-60 mt-2 min-w-40 rounded-lg bg-white py-2 shadow-lg;
+}
+
+.dropdown-item {
+  @apply w-full px-4 py-2 text-left text-gray-700 transition-colors hover:bg-gray-100;
+}
+
+.dropdown-divider {
+  @apply mx-2 my-2 border-2 border-t border-gray-400;
 }

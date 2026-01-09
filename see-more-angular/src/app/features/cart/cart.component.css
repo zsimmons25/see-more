@@ -1,0 +1,179 @@
+@import 'tailwindcss';
+
+.cart-container {
+  @apply mx-auto max-w-6xl p-6 pt-24;
+}
+
+.cart-container h1 {
+  @apply mb-8 text-3xl font-bold text-gray-900;
+}
+
+.clear-cart-btn {
+  @apply mt-4 w-full rounded-4xl bg-blue-900 px-4 py-3 font-semibold text-white transition-colors hover:bg-blue-800;
+}
+
+.empty-cart {
+  @apply py-16 text-center;
+}
+
+.empty-cart p {
+  @apply mb-6 text-xl text-gray-600;
+}
+
+.cart-content {
+  @apply grid grid-cols-1 gap-8 lg:grid-cols-3;
+}
+
+.cart-items {
+  @apply space-y-4 lg:col-span-2;
+}
+
+.cart-item {
+  background-color: oklch(0.97 0.01 220);
+  @apply flex items-start gap-6 rounded-lg p-6 shadow-sm;
+}
+
+.item-image {
+  @apply flex h-24 w-24 shrink-0 items-center justify-center rounded-lg bg-white;
+}
+
+.item-image img {
+  @apply h-full w-full object-contain;
+}
+
+.item-info {
+  @apply flex-1;
+}
+
+.item-info h3 {
+  @apply mb-1 text-xl font-bold text-gray-900;
+}
+
+.item-price {
+  @apply text-sm text-gray-700;
+}
+
+.item-controls {
+  @apply flex flex-col items-end gap-3;
+}
+
+.quantity-controls {
+  @apply flex items-center gap-3;
+}
+
+.qty-btn {
+  @apply flex h-8 w-8 items-center justify-center rounded-lg bg-blue-900 font-bold text-white transition-colors hover:bg-blue-800;
+}
+
+.quantity {
+  @apply min-w-8 text-center font-semibold;
+}
+
+.item-total {
+  @apply text-lg font-bold text-gray-900;
+}
+
+.remove-btn {
+  @apply text-sm font-semibold text-red-600 hover:text-red-700;
+}
+
+.cart-summary {
+  background-color: oklch(0.97 0.01 220);
+  @apply h-fit rounded-lg p-6 shadow-sm;
+}
+
+.cart-summary h2 {
+  @apply mb-4 text-xl font-bold text-gray-900;
+}
+
+.summary-row {
+  @apply flex justify-between py-3 text-gray-700;
+}
+
+.balance-row {
+  @apply text-sm;
+}
+
+.remaining-row {
+  @apply text-sm font-semibold;
+}
+
+.summary-divider {
+  @apply my-4 border-t border-gray-300;
+}
+
+.total-row {
+  @apply text-xl font-bold text-gray-900;
+}
+
+.error-message {
+  @apply mt-4 rounded-lg bg-red-100 p-3 text-sm text-red-700;
+}
+
+.warning-message {
+  @apply mt-4 rounded-lg bg-yellow-100 p-3 text-sm text-yellow-700;
+}
+
+.info-message {
+  @apply mt-4 rounded-lg bg-blue-100 p-4 text-center;
+}
+
+.info-message p {
+  @apply mb-3 text-sm font-semibold text-blue-800;
+}
+
+.sign-in-link-btn {
+  @apply rounded-4xl bg-orange-400 px-4 pt-2 pb-1 font-semibold text-white transition-colors hover:bg-orange-600;
+}
+
+.checkout-btn {
+  @apply mt-6 w-full rounded-4xl bg-orange-400 px-4 py-3 font-semibold text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:bg-orange-400/50;
+}
+
+.continue-btn {
+  @apply mt-3 w-full rounded-4xl border-2 border-gray-300 bg-white px-4 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-50;
+}
+
+.success-container {
+  @apply py-16 text-center;
+}
+
+.success-icon {
+  @apply mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-green-500 text-5xl text-white;
+}
+
+.success-container h2 {
+  @apply mb-2 text-2xl font-bold text-gray-900;
+}
+
+.success-container p {
+  @apply text-gray-600;
+}
+
+.modal-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4;
+}
+
+.modal-content {
+  @apply w-full max-w-md rounded-lg bg-white p-6 shadow-xl;
+}
+
+.modal-content h2 {
+  @apply mb-2 text-2xl font-bold text-gray-900;
+}
+
+.modal-subtitle {
+  @apply mb-6 text-gray-600;
+}
+
+.modal-actions {
+  @apply mt-6 flex gap-3;
+}
+
+.cancel-btn {
+  @apply flex-1 rounded-4xl border border-gray-300 px-4 py-2 font-semibold text-gray-700 transition-colors hover:bg-gray-50;
+}
+
+.confirm-btn {
+  @apply flex-1 rounded-4xl bg-blue-900 px-4 py-2 font-semibold text-white transition-colors hover:bg-blue-800;
+}
