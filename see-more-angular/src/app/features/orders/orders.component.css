@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 .orders-container {
-  @apply bg-gray-50 pt-20;
+  @apply min-h-screen bg-gray-50 pt-20 pb-8;
 }
 
 .orders-content {
@@ -9,36 +9,36 @@
 }
 
 .orders-layout {
-  @apply flex gap-6;
+  @apply flex flex-col gap-6 lg:flex-row;
 }
 
 /* Filters Sidebar */
 .filters-sidebar {
-  @apply w-64 shrink-0;
+  @apply w-full lg:w-64 lg:shrink-0;
 }
 
 .filters-card {
-  @apply sticky top-24 rounded-lg bg-white p-6 shadow-md;
+  @apply rounded-lg bg-white p-4 shadow-md lg:sticky lg:top-24 lg:p-6;
 }
 
 .filters-header {
-  @apply mb-6 flex items-center justify-between border-b border-gray-200 pb-4;
+  @apply mb-4 flex items-center justify-between border-b border-gray-200 pb-3 lg:mb-6 lg:pb-4;
 }
 
 .filters-title {
-  @apply text-xl font-bold text-gray-800;
+  @apply text-lg font-bold text-gray-800 lg:text-xl;
 }
 
 .clear-filters-btn {
-  @apply cursor-pointer text-sm text-blue-600 hover:text-blue-800;
+  @apply cursor-pointer text-xs text-blue-600 hover:text-blue-800 lg:text-sm;
 }
 
 .filter-section {
-  @apply mb-6 last:mb-0;
+  @apply mb-4 last:mb-0 lg:mb-6;
 }
 
 .filter-section-title {
-  @apply mb-3 text-sm font-semibold tracking-wider text-gray-700 uppercase;
+  @apply mb-2 text-xs font-semibold tracking-wider text-gray-700 uppercase lg:mb-3 lg:text-sm;
 }
 
 .filter-options {
@@ -59,27 +59,27 @@
 
 /* Products Grid */
 .products-section {
-  @apply flex-1;
+  @apply w-full flex-1;
 }
 
 .products-header {
-  @apply mb-6;
+  @apply mb-4 lg:mb-6;
 }
 
 .products-count {
-  @apply text-lg text-gray-600;
+  @apply text-base text-gray-600 lg:text-lg;
 }
 
 .products-grid {
-  @apply grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3;
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3;
 }
 
 .product-card {
-  @apply m-4 cursor-pointer overflow-hidden rounded-xl shadow-md transition-shadow duration-200 hover:shadow-xl;
+  @apply cursor-pointer overflow-hidden rounded-xl shadow-md transition-shadow duration-200 hover:shadow-xl;
 }
 
 .product-image-container {
-  @apply relative m-2 flex h-48 items-center justify-center;
+  @apply relative flex h-40 items-center justify-center sm:h-48;
 }
 
 .product-badge {
@@ -87,7 +87,7 @@
 }
 
 .product-image {
-  @apply h-full;
+  @apply h-full w-auto object-contain;
 }
 
 .product-placeholder {
@@ -95,7 +95,7 @@
 }
 
 .product-info {
-  @apply m-1 rounded-md bg-white p-4;
+  @apply rounded-b-md bg-white p-3 sm:p-4;
 }
 
 .product-brand {
@@ -103,7 +103,7 @@
 }
 
 .product-name {
-  @apply mb-2 text-lg font-extrabold text-blue-900;
+  @apply mb-2 text-base font-extrabold text-blue-900 sm:text-lg;
 }
 
 .product-footer {
@@ -111,13 +111,9 @@
 }
 
 .add-to-cart-btn {
-  @apply rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:bg-blue-700;
+  @apply rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700 sm:px-4;
 }
 
-.shipping-badge {
-  @apply mt-2 text-xs font-semibold text-green-600;
-}
-
-.no-products {
-  @apply py-12 text-center text-gray-500;
+.product-price {
+  @apply text-lg font-bold text-gray-900 sm:text-xl;
 }
