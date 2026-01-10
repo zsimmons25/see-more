@@ -10,7 +10,7 @@
         POSTGRES_PASSWORD: postgres
         POSTGRES_DB: see_more_db
       ports:
-        - '5432:5432'
+        - '127.0.0.1:5433:5432'
       volumes:
         - postgres_data:/var/lib/postgresql/data
         - ./see-more-nest/schemas:/docker-entrypoint-initdb.d
@@ -20,7 +20,7 @@
     backend:
       build:
         context: ./see-more-nest
-        dockerfile: Dockerfile
+        dockerfile: dockerfile
       container_name: see-more-backend
       restart: always
       environment:
@@ -31,7 +31,7 @@
         DATABASE_NAME: see_more_db
         PORT: 3000
       ports:
-        - '3000:3000'
+        - '127.0.0.1:3001:3000'
       depends_on:
         - postgres
       networks:
@@ -44,30 +44,14 @@
       container_name: see-more-frontend
       restart: always
       ports:
-        - '80:80'
-        - '443:443'
-      volumes:
-        - certbot_conf:/etc/letsencrypt
-        - certbot_www:/var/www/certbot
+        - '127.0.0.1:8081:80'
       depends_on:
         - backend
       networks:
         - see-more-network
-      command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-
-    certbot:
-      image: certbot/certbot
-      container_name: see-more-certbot
-      restart: unless-stopped
-      volumes:
-        - certbot_conf:/etc/letsencrypt
-        - certbot_www:/var/www/certbot
-      entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   volumes:
     postgres_data:
-    certbot_conf:
-    certbot_www:
 
   networks:
     see-more-network:

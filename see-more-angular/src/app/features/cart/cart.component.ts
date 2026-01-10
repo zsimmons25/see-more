@@ -37,7 +37,7 @@ export class CartComponent {
   });
 
   continueShopping(): void {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/orders']);
   }
 
   updateQuantity(productId: number, quantity: number): void {
