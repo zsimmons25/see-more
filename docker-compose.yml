@@ -40,7 +40,7 @@
     frontend:
       build:
         context: ./see-more-angular
-        dockerfile: Dockerfile
+        dockerfile: dockerfile
       container_name: see-more-frontend
       restart: always
       ports:
