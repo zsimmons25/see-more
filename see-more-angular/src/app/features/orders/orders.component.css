@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 .orders-container {
-  @apply min-h-screen bg-gray-50 pt-20 pb-8;
+  @apply bg-gray-50 pt-20 pb-8;
 }
 
 .orders-content {
