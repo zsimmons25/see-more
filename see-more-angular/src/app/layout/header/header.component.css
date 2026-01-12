@@ -9,11 +9,11 @@
 }
 
 .title {
-  @apply absolute top-5 left-16 text-xl md:text-3xl;
+  @apply absolute top-5 left-16 text-base md:text-3xl;
 }
 
 .seemore {
-  @apply absolute top-0.5 left-[calc(4rem+5.5rem)] h-10 w-5 md:left-48 md:h-14 md:w-7;
+  @apply absolute top-1 left-32 h-8 w-4 md:top-0.5 md:left-48 md:h-14 md:w-7;
 }
 
 .nav-content {
@@ -49,7 +49,7 @@
 }
 
 .nav-links {
-  @apply flex items-center gap-8;
+  @apply flex items-center gap-2 md:gap-8;
 }
 
 .nav-link {
