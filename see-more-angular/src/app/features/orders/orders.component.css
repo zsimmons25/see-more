@@ -95,7 +95,7 @@
 }
 
 .product-info {
-  @apply rounded-b-md bg-white p-3 sm:p-4;
+  @apply m-1 rounded-md bg-white p-3 sm:p-4;
 }
 
 .product-brand {

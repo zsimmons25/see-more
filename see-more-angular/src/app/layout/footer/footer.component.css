@@ -9,15 +9,15 @@
 }
 
 .footer-content {
-  @apply flex flex-col items-center justify-center gap-4 md:flex-row;
+  @apply relative flex items-center justify-between gap-2;
 }
 
 .contactme {
-  @apply absolute left-12 text-lg;
+  @apply flex gap-2 text-xs md:absolute md:left-12 md:gap-4 md:text-lg;
 }
 
 .linkedin {
-  @apply absolute right-12 flex gap-4;
+  @apply flex gap-2 md:absolute md:right-12 md:gap-4;
 }
 
 .linkedin-a {
