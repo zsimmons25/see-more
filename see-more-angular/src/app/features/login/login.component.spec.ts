@@ -1,11 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import { vi } from 'vitest';
 import { LoginComponent } from './login.component';
 import { AuthService, LoginResponse, AuthUser } from '../../core/auth.service';
-
-declare const jest: any;
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -29,11 +27,14 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     authServiceMock = {
-      login: jest.fn()
+      login: vi.fn()
     };
 
     routerMock = {
-      navigate: jest.fn()
+      navigate: vi.fn(),
+      createUrlTree: vi.fn(),
+      serializeUrl: vi.fn(),
+      events: of()
     };
 
     activatedRouteMock = {
@@ -91,11 +92,24 @@ describe('LoginComponent', () => {
     });
 
     it('should set loading to true when submitting', () => {
-      authServiceMock.login.mockReturnValue(of(mockLoginResponse));
+      let subscribed = false;
+      authServiceMock.login.mockReturnValue({
+        subscribe: (nextOrObserver: any) => {
+          if (!subscribed) {
+            subscribed = true;
+            expect(component.loading()).toBe(true);
+          }
+          if (typeof nextOrObserver === 'function') {
+            nextOrObserver(mockLoginResponse);
+          } else {
+            nextOrObserver.next(mockLoginResponse);
+            if (nextOrObserver.complete) nextOrObserver.complete();
+          }
+          return { unsubscribe: () => {} };
+        }
+      });
 
       component.onSubmit();
-
-      expect(component.loading()).toBe(true);
     });
 
     it('should clear error when submitting', () => {

@@ -7,7 +7,7 @@ import { CartService, CartItem } from '../../core/cart.service';
 import { AuthService, AuthUser } from '../../core/auth.service';
 import { ApiService, Order } from '../../core/api.service';
 
-declare const jest: any;
+import { vi } from 'vitest';
 
 describe('CartComponent', () => {
   let component: CartComponent;
@@ -44,22 +44,22 @@ describe('CartComponent', () => {
       items: signal<CartItem[]>([]),
       itemCount: signal<number>(0),
       total: signal<number>(0),
-      updateQuantity: jest.fn(),
-      removeItem: jest.fn(),
-      clearCart: jest.fn()
+      updateQuantity: vi.fn(),
+      removeItem: vi.fn(),
+      clearCart: vi.fn()
     };
 
     authServiceMock = {
       currentUser: signal<AuthUser | null>(null),
-      updateUserBalance: jest.fn()
+      updateUserBalance: vi.fn()
     };
 
     apiServiceMock = {
-      createOrder: jest.fn()
+      createOrder: vi.fn()
     };
 
     routerMock = {
-      navigate: jest.fn()
+      navigate: vi.fn()
     };
 
     await TestBed.configureTestingModule({
@@ -239,19 +239,15 @@ describe('CartComponent', () => {
     });
 
     it('should navigate to profile after delay on success', async () => {
-      jest.useFakeTimers();
       apiServiceMock.createOrder.mockReturnValue(of(mockOrder));
 
       component.placeOrder();
 
       await new Promise(resolve => setTimeout(resolve, 0));
-
-      jest.advanceTimersByTime(1500);
+      await new Promise(resolve => setTimeout(resolve, 1600));
 
       expect(routerMock.navigate).toHaveBeenCalledWith(['/profile']);
-
-      jest.useRealTimers();
-    });
+    }, 10000);
 
     it('should set error message on failure', async () => {
       const errorResponse = {

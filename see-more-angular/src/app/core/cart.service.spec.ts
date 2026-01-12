@@ -31,6 +31,9 @@ describe('CartService', () => {
       ];
       localStorage.setItem('cart', JSON.stringify(mockCart));
 
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({});
+
       const newService = TestBed.inject(CartService);
 
       expect(newService.items()).toEqual(mockCart);

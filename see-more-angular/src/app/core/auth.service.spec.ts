@@ -2,10 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
+import { vi } from 'vitest';
 import { AuthService, AuthUser, LoginResponse } from './auth.service';
 import { environment } from '../../environments/environment';
-
-declare const jest: any;
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -27,7 +26,7 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     routerMock = {
-      navigate: jest.fn()
+      navigate: vi.fn()
     };
 
     localStorage.clear();
@@ -64,6 +63,16 @@ describe('AuthService', () => {
       localStorage.setItem('token', 'test-token');
       localStorage.setItem('user', JSON.stringify(mockUser));
 
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [
+          AuthService,
+          provideHttpClient(),
+          provideHttpClientTesting(),
+          { provide: Router, useValue: routerMock }
+        ]
+      });
+
       const newService = TestBed.inject(AuthService);
 
       expect(newService.currentUser()).toEqual(mockUser);
@@ -73,6 +82,16 @@ describe('AuthService', () => {
     it('should not authenticate if only token exists', () => {
       localStorage.setItem('token', 'test-token');
 
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [
+          AuthService,
+          provideHttpClient(),
+          provideHttpClientTesting(),
+          { provide: Router, useValue: routerMock }
+        ]
+      });
+
       const newService = TestBed.inject(AuthService);
 
       expect(newService.isAuthenticated()).toBe(false);
@@ -80,6 +99,16 @@ describe('AuthService', () => {
 
     it('should not authenticate if only user exists', () => {
       localStorage.setItem('user', JSON.stringify(mockUser));
+
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [
+          AuthService,
+          provideHttpClient(),
+          provideHttpClientTesting(),
+          { provide: Router, useValue: routerMock }
+        ]
+      });
 
       const newService = TestBed.inject(AuthService);
 

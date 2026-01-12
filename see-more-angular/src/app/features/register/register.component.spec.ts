@@ -1,10 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import { vi } from 'vitest';
 import { RegisterComponent } from './register.component';
 import { AuthService, LoginResponse, AuthUser } from '../../core/auth.service';
-
-declare const jest: any;
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -27,11 +26,11 @@ describe('RegisterComponent', () => {
 
   beforeEach(async () => {
     authServiceMock = {
-      register: jest.fn()
+      register: vi.fn()
     };
 
     routerMock = {
-      navigate: jest.fn()
+      navigate: vi.fn()
     };
 
     await TestBed.configureTestingModule({
@@ -72,11 +71,24 @@ describe('RegisterComponent', () => {
     });
 
     it('should set loading to true when submitting', () => {
-      authServiceMock.register.mockReturnValue(of(mockRegisterResponse));
+      let subscribed = false;
+      authServiceMock.register.mockReturnValue({
+        subscribe: (nextOrObserver: any) => {
+          if (!subscribed) {
+            subscribed = true;
+            expect(component.loading()).toBe(true);
+          }
+          if (typeof nextOrObserver === 'function') {
+            nextOrObserver(mockRegisterResponse);
+          } else {
+            nextOrObserver.next(mockRegisterResponse);
+            if (nextOrObserver.complete) nextOrObserver.complete();
+          }
+          return { unsubscribe: () => {} };
+        }
+      });
 
       component.onSubmit();
-
-      expect(component.loading()).toBe(true);
     });
 
     it('should clear error when submitting', () => {
